@@ -311,7 +311,14 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5      
-
+  
+  ai-api-server:
+    build: ./api_server # 해당 폴더 하위에 Dockerfile을 참고하여 이미지 생성 -> 컨테이너 구성
+    container_name: airflow-class-api
+    ports:
+      - "8000:8000"
+    networks:
+      - default
 volumes:
   postgres-db-volume:
   # mysql용 볼륨 -> 도커 엔진 내부에 공간 할당
