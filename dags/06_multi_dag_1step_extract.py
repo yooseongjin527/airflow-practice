@@ -37,7 +37,7 @@ def _extract(**kwargs):
     # 로그는 별도의 프로그램에서 지속적으로 발생시켜야 함(시뮬레이션 기준)
     # 현재는 편의상 airflow에 포함시킴 
 
-    # XCOM을 통해서  task_trasform에게 전달 (로그의 경로를 전달, 실 데이터 전달 x(지양))
+    # XCOM을 통해서  task_transform에게 전달 (로그의 경로를 전달, 실 데이터 전달 x(지양))
     logging.info(f'extract 한 로그 데이터 { file_path } ')
     return file_path
 
@@ -63,7 +63,7 @@ with DAG(
     task_trigger_transform_dag_run = TriggerDagRunOperator(
         task_id = "trigger_transform",
         # 트리거 대상
-        trigger_dag_id = "06_multi_dag_2step_trasform", # 구동시킬 DAG id
+        trigger_dag_id = "06_multi_dag_2step_transform", # 구동시킬 DAG id
         # 전달할 데이터 -> xcom을 통해서 획득 가능(동인dag에 존재->jinja 템플릿 활용)
         conf    = {
             # 필요시 기타 정보도 전달 가능함

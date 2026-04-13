@@ -14,7 +14,7 @@
             ```
                 API 문서 제공, API 테스트 가능
             ```
-    - API 문서 간결화된
+    - API 문서 간결화된(read only)
         - http://127.0.0.1:8000/redoc
     - API 테스트 전용
         - postman (구글 extension -> 독립)

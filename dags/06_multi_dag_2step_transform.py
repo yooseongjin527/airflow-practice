@@ -11,7 +11,7 @@ import os
 DATA_PATH = '/opt/airflow/dags/data'
 os.makedirs(DATA_PATH, exist_ok=True)
 
-def _trasform(**kwargs):
+def _transform(**kwargs):
     # _extract에서 추출한 데이터를 다른 Dag 에서 전달한 conf를 활용하여 추출 -> "dag_run" 활용
     # 1. dag_run을 통해서 이전 task에서 전달한 데이터 획득
     dag_run = kwargs['dag_run']
@@ -41,7 +41,7 @@ def _trasform(**kwargs):
     return file_path
 
 with DAG(
-    dag_id      = "06_multi_dag_2step_trasform", 
+    dag_id      = "06_multi_dag_2step_transform", 
     description = "transform 전용 DAG",
     default_args= {
         'owner'             : 'de_2team_manager',        
@@ -53,9 +53,9 @@ with DAG(
     catchup     = False,
     tags        = ['transform', 'etl'],
 ) as dag:
-    task_trasform   = PythonOperator(
-        task_id = "trasform",
-        python_callable = _trasform
+    task_transform   = PythonOperator(
+        task_id = "transform",
+        python_callable = _transform
     )
     # 실습 : TriggerDagRunOperator 반영, 의존성까지 적용
     #       전달할 데이터의 키값 csv_path로 지정
@@ -63,10 +63,10 @@ with DAG(
         task_id = "trigger_load",
         trigger_dag_id = "06_multi_dag_3step_load",
         conf    = {
-            "csv_path":"{{ task_instance.xcom_pull(task_ids='trasform') }}"
+            "csv_path":"{{ task_instance.xcom_pull(task_ids='transform') }}"
         },
         reset_dag_run= True,
         wait_for_completion = False 
     )
     # 의존성
-    task_trasform >> task_trigger_load_dag_run
+    task_transform >> task_trigger_load_dag_run

@@ -13,7 +13,7 @@ DATA_PATH = '/opt/airflow/dags/data'
 os.makedirs(DATA_PATH, exist_ok=True)
 
 def _load(**kwargs):
-    # csv => df => mysql 적제
+    # csv => df => mysql 적재
     # 1. csv 경로 획득 -> xcom을 통해서 이전 task(게시자)의 id를 이용하여 추출 <- ti 필요
     dag_run = kwargs['dag_run']
     csv_path = dag_run.conf.get('csv_path')
@@ -77,7 +77,7 @@ with DAG(
         # 최초는 생성, 존재하면 pass => if not exists
         task_id = "create_table",
         # 연결정보
-        conn_id = "mysql_default", # 대시보드에 admin>connectinos>하위에 사전 등록
+        conn_id = "mysql_default", # 대시보드에 admin>connections>하위에 사전 등록
         # sql
         sql = '''
             CREATE TABLE IF NOT EXISTS sensor_readings (

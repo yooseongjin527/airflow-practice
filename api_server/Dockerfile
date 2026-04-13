@@ -6,8 +6,8 @@ FROM python:3.12.12-slim
 WORKDIR /app
 
 # 필요한 패키지 설치 -> 가상환경 x -> 본 컨테이너에서 단독 사용(유일한 서비스)
-# uvicorn : fastapi 앞단에서 서비스 중계(프록시, 안정적 백엔드 운영등등, web 서버 역활담당)
-# fastapi : 백엔드 구성, WAS(web application server) 역활 담당
+# uvicorn : fastapi 앞단에서 서비스 중계(프록시, 안정적 백앤드 운영등등, web 서버 역할담당)
+# fastapi : 백앤드 구성, WAS(web application server) 역할 담당
 # pydantic : API를 통해서 전달되는 요청데이터, 응답하는 데이터 -> 유효성(valid) 체크, 구조전환등
 RUN pip install fastapi pydantic uvicorn
 
