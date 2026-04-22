@@ -8,7 +8,7 @@ from faker import Faker
 # 2. Faker 객채 생성
 fake = Faker('ko_KR') #  한국어 설정
 
-# 3. 도메인별 로그를 생성하는 클레스 구성
+# 3. 도메인별 로그를 생성하는 클래스 구성
 class LogGenerator:
   def __init__(self):
     pass

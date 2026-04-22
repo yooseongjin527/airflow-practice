@@ -9,10 +9,13 @@ from log_generator import LogGenerator
 def make_log( config ):
   log_gen = LogGenerator()
   log_gen_map = {
-    "finance":log_gen.finance, # 함수 주소값 세팅
-    "factory":log_gen.factory,
-    # ... 리뷰때 추가 완성
-  }
+    "finance": log_gen.finance,
+    "factory": log_gen.factory,
+    "ecommerce": log_gen.ecommerce,
+    "iot": log_gen.iot,
+    "ott": log_gen.ott,
+    "lol_game": log_gen.lol_game,
+}
 
   print(f'{config["target_industry"]} 로그 생성 시작')
   print('-'*50)
@@ -37,7 +40,7 @@ def make_one_log():
 
 if __name__ == '__main__':
     config = {
-       "target_industry":"finance", # finance, iot, ...., game_lol
+       "target_industry":"lol_game", # finance, iot, ...., game_lol
        "mode":"random", # random or fixed
        "interval":1,    # 초단위
        "total_count":10,# 생성 개수, 

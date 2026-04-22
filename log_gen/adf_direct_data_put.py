@@ -7,14 +7,18 @@
 import boto3
 import json
 import time
+import os
+from dotenv import load_dotenv
 
 # 2. 환경변수
-ACCESS_KEY = ''
-SECRET_KEY = ''
-REGION     = 'ap-northeast-2'
+load_dotenv()
+
+ACCESS_KEY = os.environ.get('AWS_ACCESS_KEY_ID')
+SECRET_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+REGION     = os.environ.get('AWS_DEFAULT_REGION', 'ap-northeast-2')
 
 # 3. 특정 서비스(ADF) 클라이언트 생성
-def get_client( service_name='firehose', is_in_aws=True ):
+def get_client( service_name='firehose', is_in_aws=False ):
     if not is_in_aws:
         #    AWS 외부에서 진행
         session   = boto3.Session(
@@ -37,7 +41,7 @@ def send_log():
     # 5-1. 로그 1개 생성
     response = firehose.put_record(
         # 어디로? => Firehose 스트림 (본인것)
-        DeliveryStreamName = 'de-ai-17-an2-kdf-log-to-s3',
+        DeliveryStreamName = 'de-ai-17-an2-adf-log-to-s3',
         # 데이터
         Record = {
             'Data':make_one_log() + "\n" # 로그 데이터를 한줄씩 적제
